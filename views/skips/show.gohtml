@@ -1,0 +1,237 @@
+{{define "yield"}}
+
+    {{if .Yield.StudentSkipsResult.StudentSkipsFilterData.Groups}}
+            {{template "student" .Yield}}
+        {{else if .Yield.StarostaSkipsResult.StarostaSkipsFilterData.Groups}}
+            {{template "starosta" .Yield}}
+        {{end}}
+
+{{end}}
+
+
+{{define "student"}}
+    <div class="row">
+    <div class="col-md-4 col-md-offset-4">
+    <div class="panel panel-default">
+    <div class="panel-heading">
+    <h3 class="panel-title">Просмотр пропусков</h3>
+    </div>
+    <div class="panel-body">
+
+    <form action="/skips" method="GET">
+        <div class="form-group">
+
+            <label for="group_id">Группа</label>
+            <select name="group_id" class="form-control" id="group_id">
+                {{range .StudentSkipsResult.StudentSkipsFilterData.Groups}}
+                    {{if .IsSelected}}
+                        <option value="{{.Value}}" selected>{{.Text}}</option>
+                    {{else}}
+                        <option value="{{.Value}}">{{.Text}}</option>
+                    {{end}}
+                {{end}}
+            </select>
+
+            <label for="year">Учебный год</label>
+            <select name="year" class="form-control" id="year">
+                {{range .StudentSkipsResult.StudentSkipsFilterData.Years}}
+                    {{if .IsSelected}}
+                        <option value="{{.Value}}" selected>{{.Text}}</option>
+                    {{else}}
+                        <option value="{{.Value}}">{{.Text}}</option>
+                    {{end}}
+                {{end}}
+            </select>
+
+            <label for="semester">Семестр</label>
+            <select name="semester" class="form-control" id="semester">
+                {{range .StudentSkipsResult.StudentSkipsFilterData.Semesters}}
+                    {{if .IsSelected}}
+                        <option selected>{{.Text}}</option>
+                    {{else}}
+                        <option>{{.Text}}</option>
+                    {{end}}
+                {{end}}
+            </select>
+
+        </div>
+
+        <button type="submit" class="btn btn-primary pull-right">Применить</button>
+    </form>
+
+    </div>
+    </div>
+    </div>
+    </div>
+
+    <div class="row result">
+        <div class="col-md-6 col-md-offset-3">
+    <div class="panel panel-info">
+    <div class="panel-heading">Результат:</div>
+    <div class="panel-body">
+
+    <table class="table table-bordered">
+        <tr>
+            <th class="text-center" rowspan="2">Дисциплина</th>
+            <th class="text-center" rowspan="2">Дата</th>
+            <th class="text-center" rowspan="2">Причина</th>
+            <th class="text-center" colspan="3">Итог</th>
+
+
+        </tr>
+        <tr>
+            <th class="text-center">У</th>
+            <th class="text-center">Н</th>
+            <th class="text-center">Всего</th>
+        </tr>
+
+        {{range .StudentSkipsResult.StudentSkipsResultData.Rows}}
+        <tr>
+            <td class="text-center" rowspan="{{len .Skips}}">{{.DisciplineName}}</td>
+
+
+            <td class="text-center">{{(index .Skips 0).SkipDate}}</td>
+            <td class="text-center">{{(index .Skips 0).SkipReason}}</td>
+
+            <td class="text-center" rowspan="{{len .Skips}}">{{.NumberOfUHours}}</td>
+            <td class="text-center" rowspan="{{len .Skips}}">{{.NumberOfNHours}}</td>
+            <td class="text-center" rowspan="{{len .Skips}}">{{.TotalHours}}</td>
+
+        </tr>
+
+        {{range slice .Skips 1}}
+            <tr>
+                <td class="text-center">{{.SkipDate}}</td>
+                <td class="text-center">{{.SkipReason}}</td>
+            </tr>
+        {{end}}
+        {{end}}
+    </table>
+
+    </div>
+    </div>
+        </div>
+    </div>
+{{end}}
+
+
+
+
+{{define "starosta"}}
+    <div class="row">
+        <div class="col-md-4 col-md-offset-4">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Просмотр пропусков</h3>
+                </div>
+                <div class="panel-body">
+
+                    <form action="/skips" method="GET">
+                        <div class="form-group">
+
+                            <label for="group_id">Группа</label>
+                            <select name="group_id" class="form-control" id="group_id">
+                                {{range .StarostaSkipsResult.StarostaSkipsFilterData.Groups}}
+                                    {{if .IsSelected}}
+                                        <option value="{{.Value}}" selected>{{.Text}}</option>
+                                    {{else}}
+                                        <option value="{{.Value}}">{{.Text}}</option>
+                                    {{end}}
+                                {{end}}
+                            </select>
+
+                            <label for="student_id">Студент</label>
+                            <select name="student_id" class="form-control" id="student_id">
+                                {{range .StarostaSkipsResult.StarostaSkipsFilterData.Students}}
+                                    {{if .IsSelected}}
+                                        <option value="{{.Value}}" selected>{{.Text}}</option>
+                                    {{else}}
+                                        <option value="{{.Value}}">{{.Text}}</option>
+                                    {{end}}
+                                {{end}}
+                            </select>
+
+                            <label for="year">Учебный год</label>
+                            <select name="year" class="form-control" id="year">
+                                {{range .StarostaSkipsResult.StarostaSkipsFilterData.Years}}
+                                    {{if .IsSelected}}
+                                        <option value="{{.Value}}" selected>{{.Text}}</option>
+                                    {{else}}
+                                        <option value="{{.Value}}">{{.Text}}</option>
+                                    {{end}}
+                                {{end}}
+                            </select>
+
+                            <label for="semester">Семестр</label>
+                            <select name="semester" class="form-control" id="semester">
+                                {{range .StarostaSkipsResult.StarostaSkipsFilterData.Semesters}}
+                                    {{if .IsSelected}}
+                                        <option selected>{{.Text}}</option>
+                                    {{else}}
+                                        <option>{{.Text}}</option>
+                                    {{end}}
+                                {{end}}
+                            </select>
+
+                        </div>
+
+                        <button type="submit" class="btn btn-primary pull-right">Применить</button>
+                    </form>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row result">
+        <div class="col-md-6 col-md-offset-3">
+            <div class="panel panel-info">
+                <div class="panel-heading">Результат:</div>
+                <div class="panel-body">
+
+                    <table class="table table-bordered">
+                        <tr>
+                            <th class="text-center" rowspan="2">Дисциплина</th>
+                            <th class="text-center" rowspan="2">Дата</th>
+                            <th class="text-center" rowspan="2">Причина</th>
+                            <th class="text-center" colspan="3">Итог</th>
+
+
+                        </tr>
+                        <tr>
+                            <th class="text-center">У</th>
+                            <th class="text-center">Н</th>
+                            <th class="text-center">Всего</th>
+                        </tr>
+
+                        {{range .StarostaSkipsResult.StarostaSkipsResultData.Rows}}
+                            <tr>
+                                <td class="text-center" rowspan="{{len .Skips}}">{{.DisciplineName}}</td>
+
+
+                                <td class="text-center">{{(index .Skips 0).SkipDate}}</td>
+                                <td class="text-center">{{(index .Skips 0).SkipReason}}</td>
+
+                                <td class="text-center" rowspan="{{len .Skips}}">{{.NumberOfUHours}}</td>
+                                <td class="text-center" rowspan="{{len .Skips}}">{{.NumberOfNHours}}</td>
+                                <td class="text-center" rowspan="{{len .Skips}}">{{.TotalHours}}</td>
+
+                            </tr>
+
+                            {{range slice .Skips 1}}
+                                <tr>
+                                    <td class="text-center">{{.SkipDate}}</td>
+                                    <td class="text-center">{{.SkipReason}}</td>
+                                </tr>
+                            {{end}}
+                        {{end}}
+                    </table>
+
+                    <a class="btn btn-info pull-right" href="/skips/edit">Редактирование</a>
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+{{end}}

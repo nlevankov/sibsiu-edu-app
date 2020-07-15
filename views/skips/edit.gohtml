@@ -1,0 +1,120 @@
+{{define "yield"}}
+    {{template "starosta" .Yield}}
+{{end}}
+
+
+
+{{define "starosta"}}
+    <div class="row">
+        <div class="col-md-4 col-md-offset-4">
+            <div class="panel panel-default">
+
+                <div class="panel-heading">
+                    <h3 class="panel-title">Редактирование пропусков</h3>
+                </div>
+
+                <div class="panel-body">
+
+                    <form action="/skips/edit" method="GET" id="filter">
+                        <div class="form-group">
+
+                            <label for="group_id">Группа</label>
+                            <select name="group_id" class="form-control" id="group_id">
+                                {{range .StarostaSkipsEditFilterData.Groups}}
+                                    {{if .IsSelected}}
+                                        <option value="{{.Value}}" selected>{{.Text}}</option>
+                                    {{else}}
+                                        <option value="{{.Value}}">{{.Text}}</option>
+                                    {{end}}
+                                {{end}}
+                            </select>
+
+                            <label for="date">Дата</label>
+                            <input type="date" name="date" id="date" class="form-control" value="{{.StarostaSkipsEditFilterData.Date}}">
+
+                            <label for="discipline_info">Дисциплина</label>
+                            <select name="discipline_info" class="form-control" id="discipline_info">
+                                {{if .StarostaSkipsEditFilterData.Disciplines}}
+                                    {{range .StarostaSkipsEditFilterData.Disciplines}}
+                                        {{if .IsSelected}}
+                                            <option value="{{.Value}}" selected>{{.Text}}</option>
+                                        {{else}}
+                                            <option value="{{.Value}}">{{.Text}}</option>
+                                        {{end}}
+                                    {{end}}
+                                {{else}}
+                                    <option>Нет данных</option>
+                                {{end}}
+                            </select>
+
+                        </div>
+
+                        <button type="submit" class="btn btn-primary pull-right">Применить</button>
+                    </form>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row result">
+        <div class="col-md-4 col-md-offset-4">
+            <div class="panel panel-info">
+                <div class="panel-heading">Результат:</div>
+                <div class="panel-body">
+                    {{if .StarostaSkipsEditFilterData.Disciplines}}
+                        {{template "wResults" .}}
+                    {{else}}
+                        {{template "woResults" .}}
+                    {{end}}
+                </div>
+            </div>
+        </div>
+    </div>
+
+{{end}}
+
+
+{{define "wResults"}}
+
+    <form action="/api/skips/update" method="POST" id="result_form">
+        {{csrfField}}
+        <table class="table table-bordered">
+            <tr>
+                <th class="text-center">Студент</th>
+                <th class="text-center">Причина</th>
+            </tr>
+
+            {{range .StarostaSkipsEditResultData.Rows}}
+                <tr>
+                    <td>{{.StudentName}}</td>
+                    <td>
+                        <select name="{{.SkipID}}" class="form-control">
+                            {{if eq .SkipReason ""}}
+                                <option selected value=""></option>
+                                <option value="Н">Н</option>
+                                <option value="У">У</option>
+                            {{else if eq .SkipReason "Н"}}
+                                <option value=""></option>
+                                <option selected value="Н">Н</option>
+                                <option value="У">У</option>
+                            {{else}}
+                                <option value=""></option>
+                                <option value="Н">Н</option>
+                                <option selected value="У">У</option>
+                            {{end}}
+                        </select>
+                    </td>
+                </tr>
+            {{end}}
+        </table>
+
+        <button type="submit" class="btn btn-primary pull-right" id="result_btn">Сохранить</button>
+    </form>
+
+{{end}}
+
+
+{{define "woResults"}}
+    <p>На выбранную дату расписания нет.</p>
+{{end}}

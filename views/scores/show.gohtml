@@ -1,0 +1,557 @@
+{{define "yield"}}
+
+    {{if .Yield.StudentScoresResult.StudentScoresFilterData.Groups}}
+        {{template "student" .Yield}}
+    {{else if .Yield.StarostaScoresResult.StarostaScoresFilterData.Groups}}
+        {{template "starosta" .Yield}}
+    {{end}}
+
+{{end}}
+
+
+{{define "student"}}
+    <div class="row">
+    <div class="col-md-4 col-md-offset-4">
+    <div class="panel panel-default">
+    <div class="panel-body">
+
+    <form action="/scores" method="GET">
+        <div class="form-group">
+
+            <label for="group_id">Группа</label>
+            <select name="group_id" class="form-control" id="group_id">
+                {{range .StudentScoresResult.StudentScoresFilterData.Groups}}
+                    {{if .IsSelected}}
+                        <option value="{{.Value}}" selected>{{.Text}}</option>
+                    {{else}}
+                        <option value="{{.Value}}">{{.Text}}</option>
+                    {{end}}
+                {{end}}
+            </select>
+
+            <label for="year">Учебный год</label>
+            <select name="year" class="form-control" id="year">
+                {{range .StudentScoresResult.StudentScoresFilterData.Years}}
+                    {{if .IsSelected}}
+                        <option value="{{.Value}}" selected>{{.Text}}</option>
+                    {{else}}
+                        <option value="{{.Value}}">{{.Text}}</option>
+                    {{end}}
+                {{end}}
+            </select>
+
+            <label for="semester">Семестр</label>
+            <select name="semester" class="form-control" id="semester">
+                {{range .StudentScoresResult.StudentScoresFilterData.Semesters}}
+                    {{if .IsSelected}}
+                        <option selected>{{.Text}}</option>
+                    {{else}}
+                        <option>{{.Text}}</option>
+                    {{end}}
+                {{end}}
+            </select>
+
+            <label for="disciplines_ids">Дисциплины</label>
+            <select name="disciplines_ids" class="form-control my-select" id="disciplines_ids" {{if .StudentScoresResult.StudentScoresResultData.Result}}data-actions-box="true"{{end}} multiple>
+                {{range .StudentScoresResult.StudentScoresFilterData.Disciplines}}
+                    {{if .IsSelected}}
+                        <option value="{{.Value}}" selected>{{.Text}}</option>
+                    {{else}}
+                        <option value="{{.Value}}">{{.Text}}</option>
+                    {{end}}
+                {{end}}
+            </select>
+        </div>
+        <button type="submit" class="btn btn-primary pull-right">Применить</button>
+    </form>
+
+    </div>
+    </div>
+    </div>
+    </div>
+
+    <div class="row result">
+    <div class="panel panel-info">
+    <div class="panel-heading">Результат:</div>
+    <div class="panel-body">
+
+    {{/*<table class="table">*/}}
+    <table class="table table-bordered">
+        <tr>
+            <th class="text-center" rowspan="2">Дисциплина</th>
+            <th class="text-center" rowspan="2">Преподаватель</th>
+            <th class="text-center" rowspan="2">Кафедра</th>
+            <th class="text-center" colspan="3">Аттестации</th>
+            <th class="text-center" rowspan="2">Промежуточная аттестация</th>
+            <th class="text-center" rowspan="2">Пропущенные часы</th>
+
+
+        </tr>
+        <tr>
+            <th class="text-center">1</th>
+            <th class="text-center">2</th>
+            <th class="text-center">3</th>
+        </tr>
+
+        {{range .StudentScoresResult.StudentScoresResultData.Result}}
+        <tr>
+            <td>{{.DisciplineName}}</td>
+            <td>{{.TeacherName}}</td>
+            <td>{{.Cathedra}}</td>
+            <td>{{.AttOne}}</td>
+            <td>{{.AttTwo}}</td>
+            <td>{{.AttThree}}</td>
+            <td>{{.AttIntermediate}}</td>
+            <td>{{.Skips}}</td>
+        </tr>
+        {{end}}
+    </table>
+    </div>
+    </div>
+    </div>
+{{end}}
+
+
+
+
+{{define "starosta"}}
+    <div class="row">
+        <div class="col-md-4 col-md-offset-4">
+            <div class="panel panel-default">
+                <div class="panel-body">
+
+                    <form action="/scores" method="GET" id="filter">
+                        <div class="form-group">
+
+                            <label for="group_id">Группа</label>
+                            <select name="group_id" class="form-control" id="group_id">
+                                {{range .StarostaScoresResult.StarostaScoresFilterData.Groups}}
+                                    {{if .IsSelected}}
+                                        <option value="{{.Value}}" selected>{{.Text}}</option>
+                                    {{else}}
+                                        <option value="{{.Value}}">{{.Text}}</option>
+                                    {{end}}
+                                {{end}}
+                            </select>
+
+                            <label for="year">Учебный год</label>
+                            <select name="year" class="form-control" id="year">
+                                {{range .StarostaScoresResult.StarostaScoresFilterData.Years}}
+                                    {{if .IsSelected}}
+                                        <option value="{{.Value}}" selected>{{.Text}}</option>
+                                    {{else}}
+                                        <option value="{{.Value}}">{{.Text}}</option>
+                                    {{end}}
+                                {{end}}
+                            </select>
+
+                            <label for="semester">Семестр</label>
+                            <select name="semester" class="form-control" id="semester">
+                                {{range .StarostaScoresResult.StarostaScoresFilterData.Semesters}}
+                                    {{if .IsSelected}}
+                                        <option selected>{{.Text}}</option>
+                                    {{else}}
+                                        <option>{{.Text}}</option>
+                                    {{end}}
+                                {{end}}
+                            </select>
+
+                            <label for="discipline_id">Дисциплина</label>
+                            <select name="discipline_id" class="form-control" id="discipline_id">
+                                {{range .StarostaScoresResult.StarostaScoresFilterData.Disciplines}}
+                                    {{if .IsSelected}}
+                                        <option value="{{.Value}}" selected>{{.Text}}</option>
+                                    {{else}}
+                                        <option value="{{.Value}}">{{.Text}}</option>
+                                    {{end}}
+                                {{end}}
+                            </select>
+
+                        </div>
+
+                        <button type="submit" class="btn btn-primary pull-right">Применить</button>
+                    </form>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row result">
+        <div class="panel panel-info">
+            <div class="panel-heading">Результат:</div>
+            <div class="panel-body">
+
+                <form action="/api/scores/update" method="POST" id="result_form">
+                    {{csrfField}}
+                {{/*<table class="table">*/}}
+                <table class="table table-bordered">
+                    <tr>
+                        <th class="text-center" rowspan="2">Преподаватель</th>
+                        <th class="text-center" rowspan="2">Кафедра</th>
+                        <th class="text-center" rowspan="2">Студент</th>
+                        <th class="text-center" colspan="3">Аттестации</th>
+                        <th class="text-center" rowspan="2">Промежуточная аттестация</th>
+                        <th class="text-center" rowspan="2">Пропущенные часы</th>
+                    </tr>
+
+                    <tr>
+                        <th class="text-center">1</th>
+                        <th class="text-center">2</th>
+                        <th class="text-center">3</th>
+                    </tr>
+
+                    {{$r := .StarostaScoresResult.StarostaScoresResultData.Result}}
+                        <tr>
+                            <td class="text-center" rowspan="{{len $r.StudentsInfo}}">{{$r.Teacher}}</td>
+                            <td class="text-center" rowspan="{{len $r.StudentsInfo}}">{{$r.Cathedra}}</td>
+                            <td class="text-center">{{(index $r.StudentsInfo 0).StudentName}}</td>
+                            <td>
+                                <select name="{{(index $r.StudentsInfo 0).ScoreID}}" class="form-control">
+                                {{if eq (index $r.StudentsInfo 0).AttOne "5"}}
+                                    <option selected value="5">5</option>
+                                    <option value="4">4</option>
+                                    <option value="3">3</option>
+                                    <option value="2">2</option>
+                                    <option value="Н/А">Н/А</option>
+                                {{else if eq (index $r.StudentsInfo 0).AttOne "4"}}
+                                    <option value="5">5</option>
+                                    <option selected value="4">4</option>
+                                    <option value="3">3</option>
+                                    <option value="2">2</option>
+                                    <option value="Н/А">Н/А</option>
+                                {{else if eq (index $r.StudentsInfo 0).AttOne "3"}}
+                                    <option value="5">5</option>
+                                    <option value="4">4</option>
+                                    <option selected value="3">3</option>
+                                    <option value="2">2</option>
+                                    <option value="Н/А">Н/А</option>
+                                {{else if eq (index $r.StudentsInfo 0).AttOne "2"}}
+                                    <option value="5">5</option>
+                                    <option value="4">4</option>
+                                    <option value="3">3</option>
+                                    <option selected value="2">2</option>
+                                    <option value="Н/А">Н/А</option>
+                                {{else}}
+                                    <option value="5">5</option>
+                                    <option value="4">4</option>
+                                    <option value="3">3</option>
+                                    <option value="2">2</option>
+                                    <option selected value="Н/А">Н/А</option>
+                                {{end}}
+                                </select>
+                            </td>
+                            <td>
+                                <select name="{{(index $r.StudentsInfo 0).ScoreID}}" class="form-control">
+                                    {{if eq (index $r.StudentsInfo 0).AttTwo "5"}}
+                                        <option selected value="5">5</option>
+                                        <option value="4">4</option>
+                                        <option value="3">3</option>
+                                        <option value="2">2</option>
+                                        <option value="Н/А">Н/А</option>
+                                    {{else if eq (index $r.StudentsInfo 0).AttTwo "4"}}
+                                        <option value="5">5</option>
+                                        <option selected value="4">4</option>
+                                        <option value="3">3</option>
+                                        <option value="2">2</option>
+                                        <option value="Н/А">Н/А</option>
+                                    {{else if eq (index $r.StudentsInfo 0).AttTwo "3"}}
+                                        <option value="5">5</option>
+                                        <option value="4">4</option>
+                                        <option selected value="3">3</option>
+                                        <option value="2">2</option>
+                                        <option value="Н/А">Н/А</option>
+                                    {{else if eq (index $r.StudentsInfo 0).AttTwo "2"}}
+                                        <option value="5">5</option>
+                                        <option value="4">4</option>
+                                        <option value="3">3</option>
+                                        <option selected value="2">2</option>
+                                        <option value="Н/А">Н/А</option>
+                                    {{else}}
+                                        <option value="5">5</option>
+                                        <option value="4">4</option>
+                                        <option value="3">3</option>
+                                        <option value="2">2</option>
+                                        <option selected value="Н/А">Н/А</option>
+                                    {{end}}
+                                </select>
+                            </td>
+                            <td>
+                                <select name="{{(index $r.StudentsInfo 0).ScoreID}}" class="form-control">
+                                    {{if eq (index $r.StudentsInfo 0).AttThree "5"}}
+                                        <option selected value="5">5</option>
+                                        <option value="4">4</option>
+                                        <option value="3">3</option>
+                                        <option value="2">2</option>
+                                        <option value="Н/А">Н/А</option>
+                                    {{else if eq (index $r.StudentsInfo 0).AttThree "4"}}
+                                        <option value="5">5</option>
+                                        <option selected value="4">4</option>
+                                        <option value="3">3</option>
+                                        <option value="2">2</option>
+                                        <option value="Н/А">Н/А</option>
+                                    {{else if eq (index $r.StudentsInfo 0).AttThree "3"}}
+                                        <option value="5">5</option>
+                                        <option value="4">4</option>
+                                        <option selected value="3">3</option>
+                                        <option value="2">2</option>
+                                        <option value="Н/А">Н/А</option>
+                                    {{else if eq (index $r.StudentsInfo 0).AttThree "2"}}
+                                        <option value="5">5</option>
+                                        <option value="4">4</option>
+                                        <option value="3">3</option>
+                                        <option selected value="2">2</option>
+                                        <option value="Н/А">Н/А</option>
+                                    {{else}}
+                                        <option value="5">5</option>
+                                        <option value="4">4</option>
+                                        <option value="3">3</option>
+                                        <option value="2">2</option>
+                                        <option selected value="Н/А">Н/А</option>
+                                    {{end}}
+                                </select>
+                            </td>
+                            <td>
+                                <select name="{{(index $r.StudentsInfo 0).ScoreID}}" class="form-control">
+                                    {{if eq (index $r.StudentsInfo 0).AttIntermediate "5"}}
+                                        <option selected value="5">5</option>
+                                        <option value="4">4</option>
+                                        <option value="3">3</option>
+                                        <option value="2">2</option>
+                                        <option value="Н/А">Н/А</option>
+                                        <option value="Зачтено">Зачтено</option>
+                                        <option value="Не зачтено">Не зачтено</option>
+                                    {{else if eq (index $r.StudentsInfo 0).AttIntermediate "4"}}
+                                        <option value="5">5</option>
+                                        <option selected value="4">4</option>
+                                        <option value="3">3</option>
+                                        <option value="2">2</option>
+                                        <option value="Н/А">Н/А</option>
+                                        <option value="Зачтено">Зачтено</option>
+                                        <option value="Не зачтено">Не зачтено</option>
+                                    {{else if eq (index $r.StudentsInfo 0).AttIntermediate "3"}}
+                                        <option value="5">5</option>
+                                        <option value="4">4</option>
+                                        <option selected value="3">3</option>
+                                        <option value="2">2</option>
+                                        <option value="Н/А">Н/А</option>
+                                        <option value="Зачтено">Зачтено</option>
+                                        <option value="Не зачтено">Не зачтено</option>
+                                    {{else if eq (index $r.StudentsInfo 0).AttIntermediate "2"}}
+                                        <option value="5">5</option>
+                                        <option value="4">4</option>
+                                        <option value="3">3</option>
+                                        <option selected value="2">2</option>
+                                        <option value="Н/А">Н/А</option>
+                                        <option value="Зачтено">Зачтено</option>
+                                        <option value="Не зачтено">Не зачтено</option>
+                                    {{else if eq (index $r.StudentsInfo 0).AttIntermediate "Н/А"}}
+                                        <option value="5">5</option>
+                                        <option value="4">4</option>
+                                        <option value="3">3</option>
+                                        <option value="2">2</option>
+                                        <option selected value="Н/А">Н/А</option>
+                                        <option value="Зачтено">Зачтено</option>
+                                        <option value="Не зачтено">Не зачтено</option>
+                                    {{else if eq (index $r.StudentsInfo 0).AttIntermediate "Зачтено"}}
+                                        <option value="5">5</option>
+                                        <option value="4">4</option>
+                                        <option value="3">3</option>
+                                        <option value="2">2</option>
+                                        <option value="Н/А">Н/А</option>
+                                        <option selected value="Зачтено">Зачтено</option>
+                                        <option value="Не зачтено">Не зачтено</option>
+                                    {{else}}
+                                        <option value="5">5</option>
+                                        <option value="4">4</option>
+                                        <option value="3">3</option>
+                                        <option value="2">2</option>
+                                        <option value="Н/А">Н/А</option>
+                                        <option value="Зачтено">Зачтено</option>
+                                        <option selected value="Не зачтено">Не зачтено</option>
+                                    {{end}}
+                                </select>
+                            </td>
+                            <td>{{(index $r.StudentsInfo 0).Skips}}</td>
+                        </tr>
+                    {{range slice $r.StudentsInfo 1}}
+                        <tr>
+                        <td class="text-center">{{.StudentName}}</td>
+
+                            <td>
+                                <select name="{{.ScoreID}}" class="form-control">
+                                    {{if eq .AttOne "5"}}
+                                        <option selected value="5">5</option>
+                                        <option value="4">4</option>
+                                        <option value="3">3</option>
+                                        <option value="2">2</option>
+                                        <option value="Н/А">Н/А</option>
+                                    {{else if eq .AttOne "4"}}
+                                        <option value="5">5</option>
+                                        <option selected value="4">4</option>
+                                        <option value="3">3</option>
+                                        <option value="2">2</option>
+                                        <option value="Н/А">Н/А</option>
+                                    {{else if eq .AttOne "3"}}
+                                        <option value="5">5</option>
+                                        <option value="4">4</option>
+                                        <option selected value="3">3</option>
+                                        <option value="2">2</option>
+                                        <option value="Н/А">Н/А</option>
+                                    {{else if eq .AttOne "2"}}
+                                        <option value="5">5</option>
+                                        <option value="4">4</option>
+                                        <option value="3">3</option>
+                                        <option selected value="2">2</option>
+                                        <option value="Н/А">Н/А</option>
+                                    {{else}}
+                                        <option value="5">5</option>
+                                        <option value="4">4</option>
+                                        <option value="3">3</option>
+                                        <option value="2">2</option>
+                                        <option selected value="Н/А">Н/А</option>
+                                    {{end}}
+                                </select>
+                            </td>
+                            <td>
+                                <select name="{{.ScoreID}}" class="form-control">
+                                    {{if eq .AttTwo "5"}}
+                                        <option selected value="5">5</option>
+                                        <option value="4">4</option>
+                                        <option value="3">3</option>
+                                        <option value="2">2</option>
+                                        <option value="Н/А">Н/А</option>
+                                    {{else if eq .AttTwo "4"}}
+                                        <option value="5">5</option>
+                                        <option selected value="4">4</option>
+                                        <option value="3">3</option>
+                                        <option value="2">2</option>
+                                        <option value="Н/А">Н/А</option>
+                                    {{else if eq .AttTwo "3"}}
+                                        <option value="5">5</option>
+                                        <option value="4">4</option>
+                                        <option selected value="3">3</option>
+                                        <option value="2">2</option>
+                                        <option value="Н/А">Н/А</option>
+                                    {{else if eq .AttTwo "2"}}
+                                        <option value="5">5</option>
+                                        <option value="4">4</option>
+                                        <option value="3">3</option>
+                                        <option selected value="2">2</option>
+                                        <option value="Н/А">Н/А</option>
+                                    {{else}}
+                                        <option value="5">5</option>
+                                        <option value="4">4</option>
+                                        <option value="3">3</option>
+                                        <option value="2">2</option>
+                                        <option selected value="Н/А">Н/А</option>
+                                    {{end}}
+                                </select>
+                            </td>
+                            <td>
+                                <select name="{{.ScoreID}}" class="form-control">
+                                    {{if eq .AttThree "5"}}
+                                        <option selected value="5">5</option>
+                                        <option value="4">4</option>
+                                        <option value="3">3</option>
+                                        <option value="2">2</option>
+                                        <option value="Н/А">Н/А</option>
+                                    {{else if eq .AttThree "4"}}
+                                        <option value="5">5</option>
+                                        <option selected value="4">4</option>
+                                        <option value="3">3</option>
+                                        <option value="2">2</option>
+                                        <option value="Н/А">Н/А</option>
+                                    {{else if eq .AttThree "3"}}
+                                        <option value="5">5</option>
+                                        <option value="4">4</option>
+                                        <option selected value="3">3</option>
+                                        <option value="2">2</option>
+                                        <option value="Н/А">Н/А</option>
+                                    {{else if eq .AttThree "2"}}
+                                        <option value="5">5</option>
+                                        <option value="4">4</option>
+                                        <option value="3">3</option>
+                                        <option selected value="2">2</option>
+                                        <option value="Н/А">Н/А</option>
+                                    {{else}}
+                                        <option value="5">5</option>
+                                        <option value="4">4</option>
+                                        <option value="3">3</option>
+                                        <option value="2">2</option>
+                                        <option selected value="Н/А">Н/А</option>
+                                    {{end}}
+                                </select>
+                            </td>
+                            <td>
+                                <select name="{{.ScoreID}}" class="form-control">
+                                    {{if eq .AttIntermediate "5"}}
+                                        <option selected value="5">5</option>
+                                        <option value="4">4</option>
+                                        <option value="3">3</option>
+                                        <option value="2">2</option>
+                                        <option value="Н/А">Н/А</option>
+                                        <option value="Зачтено">Зачтено</option>
+                                        <option value="Не зачтено">Не зачтено</option>
+                                    {{else if eq .AttIntermediate "4"}}
+                                        <option value="5">5</option>
+                                        <option selected value="4">4</option>
+                                        <option value="3">3</option>
+                                        <option value="2">2</option>
+                                        <option value="Н/А">Н/А</option>
+                                        <option value="Зачтено">Зачтено</option>
+                                        <option value="Не зачтено">Не зачтено</option>
+                                    {{else if eq .AttIntermediate "3"}}
+                                        <option value="5">5</option>
+                                        <option value="4">4</option>
+                                        <option selected value="3">3</option>
+                                        <option value="2">2</option>
+                                        <option value="Н/А">Н/А</option>
+                                        <option value="Зачтено">Зачтено</option>
+                                        <option value="Не зачтено">Не зачтено</option>
+                                    {{else if eq .AttIntermediate "2"}}
+                                        <option value="5">5</option>
+                                        <option value="4">4</option>
+                                        <option value="3">3</option>
+                                        <option selected value="2">2</option>
+                                        <option value="Н/А">Н/А</option>
+                                        <option value="Зачтено">Зачтено</option>
+                                        <option value="Не зачтено">Не зачтено</option>
+                                    {{else if eq .AttIntermediate "Н/А"}}
+                                        <option value="5">5</option>
+                                        <option value="4">4</option>
+                                        <option value="3">3</option>
+                                        <option value="2">2</option>
+                                        <option selected value="Н/А">Н/А</option>
+                                        <option value="Зачтено">Зачтено</option>
+                                        <option value="Не зачтено">Не зачтено</option>
+                                    {{else if eq .AttIntermediate "Зачтено"}}
+                                        <option value="5">5</option>
+                                        <option value="4">4</option>
+                                        <option value="3">3</option>
+                                        <option value="2">2</option>
+                                        <option value="Н/А">Н/А</option>
+                                        <option selected value="Зачтено">Зачтено</option>
+                                        <option value="Не зачтено">Не зачтено</option>
+                                    {{else}}
+                                        <option value="5">5</option>
+                                        <option value="4">4</option>
+                                        <option value="3">3</option>
+                                        <option value="2">2</option>
+                                        <option value="Н/А">Н/А</option>
+                                        <option value="Зачтено">Зачтено</option>
+                                        <option selected value="Не зачтено">Не зачтено</option>
+                                    {{end}}
+                                </select>
+                            </td>
+                        <td>{{.Skips}}</td>
+                        </tr>
+                    {{end}}
+                </table>
+                <button type="submit" class="btn btn-primary pull-right" id="result_btn">Сохранить</button>
+                </form>
+                <a class="btn btn-success" id="report_link" href="/scores/report">Отчет</a>
+            </div>
+        </div>
+    </div>
+{{end}}

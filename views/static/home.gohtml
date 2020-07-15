@@ -1,0 +1,18 @@
+{{define "yield"}}
+
+    <p class="text-center">Добро пожаловать в систему учета успеваемости СибГИУ!</p>
+
+    {{if .Yield}}
+        <p class="text-center">Последнее обновление данных: {{.Yield}}</p>
+    {{end}}
+
+    {{if .User}}
+    {{else}}
+        <p class="text-center">Для входа в систему необходимо авторизоваться</p>
+        <p class="text-center"><a class="btn btn-info" href="/login">Вход</a></p>
+    {{end}}
+
+{{end}}
+
+
+

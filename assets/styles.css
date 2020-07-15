@@ -1,0 +1,17 @@
+.thumbnail {
+    width: 100%;
+    margin-bottom: 6px;
+}
+
+.btn-delete {
+    margin-bottom: 6px;
+}
+
+.result {
+    padding-left: 1%;
+    padding-right: 1%;
+}
+
+body {
+    padding-top: 65px;
+}
