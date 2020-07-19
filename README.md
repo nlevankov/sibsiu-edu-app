@@ -6,9 +6,6 @@ A web application for recording grades and attendance info of students of the Si
 
 ## Deployment
 
-Ready to work example (Windows 7 64bit):  
-https://drive.google.com/uc?id=1wjmjDhwGo8h9CGc_oZbK9by3AOl8KfrY
-
 Installation:
 1. Compile the app with the `go` tool.
 2. Install PostgreSQL server and create a database named "sibsiu_dev" (or with your custom name, but make sure the name is the same as in a .config file mentioned below).
