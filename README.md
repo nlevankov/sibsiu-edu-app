@@ -1,6 +1,6 @@
 ## sibsiu-edu-app
 
-![sibsiu](https://drive.google.com/uc?id=1AtFR_fJSV0hoyV2ctCjU71sJUwVHS_Vu)
+![sibsiu](https://drive.google.com/uc?id=1ezWCe-B_cN-UzJSVWYB5ZuJjbPxQQ2gy)
 
 A web application for recording grades and attendance info of students of the Siberian State Industrial University (SibSIU). In other words, it's like an electronic diary, but for the university.
 
@@ -126,15 +126,15 @@ Some of the used technologies/tools/packages:
 
 ## Screenshots
 
-![Screenshot 1](https://drive.google.com/uc?id=1hQOkTxMYyXbkCklOod4J-AKoEfQhEA-k)
+![Screenshot 1](https://drive.google.com/uc?id=1Y1cfoyGrzw7lrqpbqbQQb6Wgr8rUT3zV)
 
-![Screenshot 2](https://drive.google.com/uc?id=1bJVekCsUKg5GUBDeXJidCdSsvJTGMcVM)
+![Screenshot 2](https://drive.google.com/uc?id=1EhXfDCmsjty-dlEAO5NrVoNJh0x3rjS4)
 
-![Screenshot 3](https://drive.google.com/uc?id=1YrdsW_pTRZDXNuWpKnCBnfHcPlK-QVXS)
+![Screenshot 3](https://drive.google.com/uc?id=1n09ir6OQQovDaec5gwiv3WqGFDqQ_Qr-)
 
-![Screenshot 4](https://drive.google.com/uc?id=18SR2YX9_vITMBm8MBH3m9PQ3FHYvAcY1)
+![Screenshot 4](https://drive.google.com/uc?id=107JTSq7PRQsAPNjWCmMEb5esbGEqC5rr)
 
-![Screenshot 5](https://drive.google.com/uc?id=1eS204IpGcGlgX4LV9Og73yCIxkis2UAI)
+![Screenshot 5](https://drive.google.com/uc?id=1dHT6dnWZpc49JvqOp0L5Mb7Y11q783IK)
 
-![Screenshot 6](https://drive.google.com/uc?id=17r5_j3YJDeWboz-XfDk_KEVwTMJL7yMM)
+![Screenshot 6](https://drive.google.com/uc?id=16yr0QCt6y-yiLpHePjrnLnEq3byhw1Yq)
 
