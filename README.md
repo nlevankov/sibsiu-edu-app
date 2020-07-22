@@ -77,8 +77,8 @@ Brian W. Kernighan, Alan A. A. Donovan - The Go Programming Language (2015, Addi
 
 This is a REST-like app, not REST-ful. It doesn't fully realize all the conceptions required by REST conventions.  It doesn't have caching in particular. But the architecture allows to implement these features later like layers, e.g. it allows to make every program layer independently and in similar style.
 
-Error handling, package and function documentation, localization and testing are intentionally omitted almost everywhere in the app because I hadn't much time at the time of writing it (due to full-time education in the university) and I wasn't sure about whether I could implement the app at least at "it works" state or not. The app is not refactored.
-I do realize that it is unmaintainable, but I wanted to focus on things listed above. So the app's alternative name is "TODO" :D  
+Package and function documentation, localization and testing are intentionally omitted almost everywhere in the app because I hadn't much time at the time of writing it (due to full-time education in the university) and I wasn't sure about whether I could implement the app at least at "it works" state or not. The app is not refactored.
+I do realize that it is not good, but I wanted to focus on things listed above. So the app's alternative name is "TODO" :D  
 It's my education project that gave me good experience in web programming with Golang and understanding of some basic conceptions, patterns and programming techniques in developing web apps with Golang.
 
 Some of the used technologies/tools/packages:
